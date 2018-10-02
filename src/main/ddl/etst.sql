@@ -1,0 +1,11 @@
+-- Drop Tables
+DROP TABLE IF EXISTS NAMES;
+
+-- 
+-- Test Table
+--
+CREATE TABLE NAMES (
+    N_ID        BIGINT NOT NULL,
+    N_NAME      VARCHAR(64) NOT NULL,
+    PRIMARY KEY (N_ID)
+);
