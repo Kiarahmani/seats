@@ -1,27 +1,35 @@
+import java.util.Properties;
+
 import com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException;
 
 public class Transaction {
 	private Seats dao;
 	private int insID;
+	private Properties p;
 
 	// constructor
-	public Transaction(int insID) {
+	public Transaction(int insID, Properties p) {
 		this.insID = insID;
 		dao = new Seats(insID);
+		this.p = p;
+
 	}
 
 	// run the transaction wrapper
 	public void run(String opType) {
 
 		try {
-			if (opType.equals("updateReservation"))
-				dao.updateReservation();
-			else if (opType.equals("deleteReservation"))
+			if (opType.equals("updateReservation")) {
+				int c_id = Integer.valueOf(p.getProperty("c_id"));
+				dao.updateReservation(c_id*1111, 1, c_id, 13, 1, 666);
+			} else if (opType.equals("deleteReservation"))
 				dao.deleteReservation();
 			else if (opType.equals("init"))
 				dao.initialize();
-			else if (opType.equals("updateCustomer"))
-				dao.updateCustomer();
+			else if (opType.equals("updateCustomer")) {
+				int c_id = Integer.valueOf(p.getProperty("c_id"));
+				dao.updateCustomer(null, "kiarash", 10L, 777, 666);
+			}
 			else if (opType.equals("newReservation"))
 				dao.newReservation();
 			else if (opType.equals("findOpenSeats"))
