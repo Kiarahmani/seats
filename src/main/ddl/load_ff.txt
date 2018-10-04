@@ -1,6 +1,5 @@
-1,550,kiarash,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
-1,250,kiarash,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
-1,110,kiarash,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
-1,22,kiarash,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
-1,123,kiarash,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k,k
-
+1,50,kiarash,k,k,k,k,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+1,250,kiarash,k,k,k,k,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+1,110,kiarash,k,k,k,k,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+1,22,kiarash,k,k,k,k,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+1,123,kiarash,k,k,k,k,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5

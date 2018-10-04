@@ -20,6 +20,56 @@ import java.util.regex.Pattern;
 public abstract class SEATSConstants {
 
 	// ----------------------------------------------------------------
+	// TXNS
+	// ----------------------------------------------------------------
+	public final static String GetFlight = "SELECT F_STATUS, F_BASE_PRICE, F_SEATS_TOTAL, F_SEATS_LEFT, "
+			+ "       (F_BASE_PRICE + (F_BASE_PRICE * (1 - (F_SEATS_LEFT / F_SEATS_TOTAL)))) AS F_PRICE " + "  FROM "
+			+ SEATSConstants.TABLENAME_FLIGHT + " WHERE F_ID = ?";
+
+	public final static String GetSeats = "SELECT R_ID, R_F_ID, R_SEAT " + "  FROM "
+			+ SEATSConstants.TABLENAME_RESERVATION + " WHERE R_F_ID = ?";
+
+	public final static String GetNearbyAirports = "SELECT * " + "  FROM " + SEATSConstants.TABLENAME_AIRPORT_DISTANCE
+			+ " WHERE D_AP_ID0 = ? " + "   AND D_DISTANCE <= ? " + " ORDER BY D_DISTANCE ASC ";
+
+	public final static String GetAirportInfo = "SELECT AP_CODE, AP_NAME, AP_CITY, AP_LONGITUDE, AP_LATITUDE, "
+			+ " CO_ID, CO_NAME, CO_CODE_2, CO_CODE_3 " + " FROM " + SEATSConstants.TABLENAME_AIRPORT + ", "
+			+ SEATSConstants.TABLENAME_COUNTRY + " WHERE AP_ID = ? AND AP_CO_ID = CO_ID ";
+
+	public final static String BaseGetFlights = "SELECT F_ID, F_AL_ID, F_SEATS_LEFT, "
+			+ " F_DEPART_AP_ID, F_DEPART_TIME, F_ARRIVE_AP_ID, F_ARRIVE_TIME, " + " AL_NAME, AL_IATTR00, AL_IATTR01 "
+			+ " FROM " + SEATSConstants.TABLENAME_FLIGHT + ", " + SEATSConstants.TABLENAME_AIRLINE
+			+ " WHERE F_DEPART_AP_ID = 1 " + "   AND F_DEPART_TIME >= ? AND F_DEPART_TIME <= ? "
+			+ "   AND F_AL_ID = AL_ID " + "   AND F_ARRIVE_AP_ID IN (??)";
+	//
+	//
+
+	public final static String GetCustomerByIdStr = "SELECT C_ID " + "  FROM " + SEATSConstants.TABLENAME_CUSTOMER
+			+ " WHERE C_ID_STR = ?";
+
+	public final static String GetCustomerByFFNumber = "SELECT C_ID, FF_AL_ID " + "  FROM "
+			+ SEATSConstants.TABLENAME_CUSTOMER + ", " + SEATSConstants.TABLENAME_FREQUENT_FLYER
+			+ " WHERE FF_C_ID_STR = ? AND FF_C_ID = C_ID";
+
+	public final static String GetCustomerReservation = "SELECT C_SATTR00, C_SATTR02, C_SATTR04, "
+			+ "       C_IATTR00, C_IATTR02, C_IATTR04, C_IATTR06, " + "       F_SEATS_LEFT, "
+			+ "       R_ID, R_SEAT, R_PRICE, R_IATTR00 " + "  FROM " + SEATSConstants.TABLENAME_CUSTOMER + ", "
+			+ SEATSConstants.TABLENAME_FLIGHT + ", " + SEATSConstants.TABLENAME_RESERVATION
+			+ " WHERE C_ID = ? AND C_ID = R_C_ID " + "   AND F_ID = ? AND F_ID = R_F_ID ";
+
+	public final static String DeleteReservation = "DELETE FROM " + SEATSConstants.TABLENAME_RESERVATION
+			+ " WHERE R_ID = ? AND R_C_ID = ? AND R_F_ID = ?";
+
+	public final static String UpdateFlight = "UPDATE " + SEATSConstants.TABLENAME_FLIGHT
+			+ "   SET F_SEATS_LEFT = F_SEATS_LEFT + 1 " + " WHERE F_ID = ? ";
+
+	public final static String UpdateCustomer = "UPDATE " + SEATSConstants.TABLENAME_CUSTOMER
+			+ "   SET C_BALANCE = C_BALANCE + ?, " + "       C_IATTR00 = ?, " + "       C_IATTR10 = C_IATTR10 - 1, "
+			+ "       C_IATTR11 = C_IATTR10 - 1 " + " WHERE C_ID = ? ";
+
+	public final static String UpdateFrequentFlyer = "UPDATE " + SEATSConstants.TABLENAME_FREQUENT_FLYER
+			+ "   SET FF_IATTR10 = FF_IATTR10 - 1 " + " WHERE FF_C_ID = ? " + "   AND FF_AL_ID = ?";
+	// ----------------------------------------------------------------
 	// STORED PROCEDURE EXECUTION FREQUENCIES (0% - 100%)
 	// ----------------------------------------------------------------
 
